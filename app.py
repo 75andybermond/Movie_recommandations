@@ -47,7 +47,7 @@ def recommend_movies(movie_name):
      if idx is None:
           return []
      sim_scores = pd.DataFrame(similarity[idx], columns=["score"])
-     sim_scores = sim_scores[0:10]
+     sim_scores = sim_scores[0:]
      movie_indices = sim_scores.sort_values("score", ascending=False)[0:5].index.tolist()
      recommended_movies = series.iloc[movie_indices]['title']
 
