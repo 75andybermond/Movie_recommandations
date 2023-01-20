@@ -41,4 +41,21 @@ def clean_names(element):
     names_list = ' '.join(names_list)
     return names_list
  
-
+ 
+def separate_actors(df, column_name):
+    """
+    Create as many columns as actors present in the movies 
+    """
+    # Split the column by comma and expand to separate rows
+    actors = df[column_name].str.split(',', expand=True)
+    
+    # Rename the columns
+    actors.columns = ["actor_" + str(i+1) for i in range(actors.shape[1])]
+    
+    # Drop the original column
+    df.drop(column_name, axis=1, inplace=True)
+    
+    # Join the new actor columns to the original dataframe
+    df = pd.concat([df, actors], axis=1)
+    
+    return df
